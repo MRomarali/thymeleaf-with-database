@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <script defer th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script defer th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<nav class="nav navbar-dark bg-dark">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="navbar-brand text-info" href="#">LOGO</a>
+        </li>
+        <li sec:authorize="isAnonymous() || hasAnyAuthority('ADMIN')" class="nav-item">
+            <a class="nav-link text-info" th:href="@{/users/register/form}" href="#">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-info" href="#">Link 2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-info" href="#">Link 3</a>
+        </li>
+    </ul>
+    <form th:action="@{/logout}" action="#" class="form-inline" method="post">
+        <div sec:authorize="isAuthenticated()">
+            <button class="btn btn-outline-info" type="submit" value="Logout">Logout</button>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <a class="btn btn-outline-info" th:href="@{/login}" href="#" value="Login">Login</a>
+        </div>
+    </form>
+</nav>
+<div class="container">
+    <div sec:authorize="isAuthenticated()">
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            <h2>Hello <span th:text="${#authentication.name}"></span></h2>
+        </div>
+    </div>
+    <div sec:authorize="!hasAuthority('ADMIN')">
+        <div sec:authorize="">
+            <h2>Hello <span th:text="${#authentication.name}"></span></h2>
+        </div>
+    </div>
+
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <a class="btn btn-outline-primary" th:href="@{/admin}">Admin page</a>
+    </div>
+</div>
+</body>
+</html>

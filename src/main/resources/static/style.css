@@ -1,0 +1,17 @@
+ul{
+    list-style: none;
+}
+.form-error{
+    text-align: left;
+    display: flex;
+    color: red;
+    font-size: small;
+    font-style: italic;
+}
+.input-group-prepend{
+    width: 15%;
+}
+.input-group-prepend label{
+    width: 100%;
+    overflow: hidden;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script defer th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script defer th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <meta charset="UTF-8">
+    <title>Update Users</title>
+</head>
+<body>
+    <div class="container">
+        <form th:action="@{/users/{id}/update (id=${})}" th:object="${}" method="post">
+            <input type="hidden" th:value="${}" th:field="">
+            <label for="email">Email</label>
+            <input class="form-control" type="email" id="email" th:field="">
+            <div th:if="${#fields.hasErrors('email')}">
+                <ul class="p-0">
+                    <li th:each="error : ${#fields.errors('email')}">
+                        <span class="form-error" th:text="${error}"></span>
+                    </li>
+                </ul>
+            </div>
+            <label for="firstname">First name</label>
+            <input class="form-control" type="firstname" id="firstname" th:field="">
+            <div th:if="${#fields.hasErrors('firstname')}">
+                <ul class="p-0">
+                    <li th:each="error : ${#fields.errors('firstname')}">
+                        <span class="form-error" th:text="${error}"></span>
+                    </li>
+                </ul>
+            </div>
+            <label for="lastname">Last name</label>
+            <input class="form-control" type="lastname" id="lastname" th:field="">
+            <div th:if="${#fields.hasErrors('lastname')}">
+                <ul class="p-0">
+                    <li th:each="error : ${#fields.errors('lastname')}">
+                        <span class="form-error" th:text="${error}"></span>
+                    </li>
+                </ul>
+            </div>
+            <button class="btn btn-primary" type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>
